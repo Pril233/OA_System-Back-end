@@ -1,5 +1,9 @@
 package pril.oa_system.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pril.oa_system.dao.UserRepository;
 import pril.oa_system.pojo.User;
@@ -24,14 +28,28 @@ public class UserService {
        return userList;
    }
 
+   public Page<User> getPageUsers(int pagenum,int pagesize){
+       Sort sort = new Sort(Sort.Direction.ASC, "id");
+       Pageable pageable = new PageRequest(pagenum,pagesize, sort);
+       Page<User> pageFromJPA = userRepository.findAll(pageable);
+       return pageFromJPA;
+   }
+
+
+
+
    public User updateOrSave(User user){
-       return userRepository.save(user);
+       return userRepository.save(user  );
    }
 
    public void deleteById(Integer id){
        userRepository.deleteById(id);
    }
 
+   public List<User> getUserListByPage(int pagenum,int pagesize){
+
+       return null;
+   }
 
 
 }

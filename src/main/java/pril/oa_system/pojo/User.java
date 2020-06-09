@@ -27,4 +27,16 @@ public class User {
     @JoinColumn(name="rid")
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Role role;
+
+    @ManyToOne()
+    @JoinColumn(name="pid")
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Post post;
+
+    @ManyToOne()
+    @JoinColumn(name="did")
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Depart depart;
+
+
 }
