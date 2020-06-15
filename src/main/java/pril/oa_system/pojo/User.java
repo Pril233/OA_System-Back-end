@@ -8,11 +8,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_user")
 @Data
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,6 +23,8 @@ public class User {
     private String name;
     private String email;
     private String tel;
+
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne()
     @JoinColumn(name="rid")

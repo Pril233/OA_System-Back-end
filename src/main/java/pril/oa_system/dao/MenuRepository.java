@@ -9,5 +9,6 @@ public interface MenuRepository extends JpaRepository<Menu,Integer> {
     @Override
     List<Menu> findAll();
     List<Menu> findAllByParentId(int parentId);
+    List<Menu> findAllById(int id);
 
 }

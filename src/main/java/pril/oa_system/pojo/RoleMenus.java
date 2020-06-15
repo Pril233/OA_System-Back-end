@@ -9,15 +9,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "s_role_right")
+@Table(name = "t_role_menu")
 @Getter
 @Setter
-public class RoleRights {
+public class RoleMenus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Fetch(FetchMode.JOIN)
-    private Integer roleId;
-    private Integer rightId;
+    private Integer rid;
+    private Integer mid;
 }

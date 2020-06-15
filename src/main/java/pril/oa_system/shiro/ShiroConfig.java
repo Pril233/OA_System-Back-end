@@ -37,6 +37,14 @@ public class ShiroConfig {
         return defaultSecurityManager;
     }
 
+    /*@Bean
+    public DefaultWebSecurityManager securityManager(){
+        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+        //设置realm.
+        securityManager.setRealm(getMyRealm());
+        return securityManager;
+    }*/
+
     /**
      * 创建自定义的Realm
      */

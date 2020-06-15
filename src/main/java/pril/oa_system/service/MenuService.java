@@ -1,8 +1,14 @@
 package pril.oa_system.service;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
 import org.springframework.stereotype.Service;
 import pril.oa_system.dao.MenuRepository;
+import pril.oa_system.dao.UserRepository;
 import pril.oa_system.pojo.Menu;
+import pril.oa_system.pojo.RoleMenus;
+import pril.oa_system.pojo.User;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -15,9 +21,15 @@ public class MenuService {
     @Resource
     MenuRepository menuRepository;
 
+    @Resource
+    RoleMenusService roleMenusService;
 
-    public List<Menu> buildMenuList(){
-        List<Menu> menus = menuRepository.findAllByParentId(0);
+    @Resource
+    UserRepository userRepository;
+
+//根据parent父id获取菜单
+    public List<Menu> buildMenuList(int mid){
+        List<Menu> menus = menuRepository.findAllByParentId(mid);
         List<Menu> all = menuRepository.findAll();
 
         for(Menu menu:menus){
@@ -26,6 +38,38 @@ public class MenuService {
 
         }
         return menus;
+    }
+
+
+//根据parentid或者id获取菜单
+    public List<Menu> buildMenuList1(int id){
+        List<Menu> menus = new ArrayList<>();
+        User user = userRepository.findOne(id);
+        List<RoleMenus> roleMenusList = roleMenusService.findAllByRid(user.getRole().getId());
+        for(RoleMenus roleMenus:roleMenusList){
+            if(roleMenus.getMid()==0){
+                menus = menuRepository.findAllByParentId(0);
+                break;
+            }
+            else
+            menus.addAll(menuRepository.findAllById(roleMenus.getMid()));
+        }
+
+
+        List<Menu> all = menuRepository.findAll();
+
+        for(Menu menu:menus){
+            List<Menu> child = getChild(menu.getId(),all);
+            menu.setChildren(child);
+
+        }
+        return menus;
+    }
+
+    public List buildMenuListById(int id){
+
+
+        return buildMenuList1(id);
     }
 
     /**

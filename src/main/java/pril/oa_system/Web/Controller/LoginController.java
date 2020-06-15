@@ -29,9 +29,12 @@ public class LoginController {
         try{
             //完成登录
             subject.login(token);
+            System.out.println(subject.hasRole("管理员"));
+
             //获得用户对象
             User resultUser = (User)subject.getPrincipal();
             HashMap<Object, Object> data = new HashMap<>();
+            /*System.out.println(resultUser.getId());*/
             data.put("id",resultUser.getId());
             data.put("name",resultUser.getName());
             data.put("token", JWTUtil.sign(resultUser));

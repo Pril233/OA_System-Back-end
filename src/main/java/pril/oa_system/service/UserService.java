@@ -5,7 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pril.oa_system.dao.DepartRepository;
 import pril.oa_system.dao.UserRepository;
+import pril.oa_system.pojo.Depart;
 import pril.oa_system.pojo.User;
 
 import javax.annotation.Resource;
@@ -15,6 +17,9 @@ import java.util.List;
 public class UserService {
     @Resource
     UserRepository userRepository;
+
+    @Resource
+    DepartRepository departRepository;
 
    /* @Resource
     RedisUtil redisutil;*/
@@ -41,14 +46,23 @@ public class UserService {
    public User updateOrSave(User user){
        return userRepository.save(user  );
    }
+   
+   public void add(User user){userRepository.save(user);}
 
    public void deleteById(Integer id){
+
        userRepository.deleteById(id);
    }
 
    public List<User> getUserListByPage(int pagenum,int pagesize){
 
        return null;
+   }
+
+   public User findUserById(int id){
+
+       return userRepository.findOne(id);
+
    }
 
 
