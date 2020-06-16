@@ -54,6 +54,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public Result getUserById(@PathVariable("id") int id){
         User user = userServiceImpl.findUserById(id);
+        System.out.println(user.getUsername());
         return ResultFactory.buildSuccessResult(user,"通过ID查找用户成功");
     }
 

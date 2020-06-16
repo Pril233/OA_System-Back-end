@@ -52,7 +52,7 @@ public class MenuService {
                 break;
             }
             else
-            menus.addAll(menuRepository.findAllById(roleMenus.getMid()));
+            menus.addAll(menuRepository.findAllByIdOrderByQueue(roleMenus.getMid()));
         }
 
 

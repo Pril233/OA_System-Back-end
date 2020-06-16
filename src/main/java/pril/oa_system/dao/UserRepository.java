@@ -20,6 +20,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     
     List<User> findByPost(Post post);
 
+    User findById(int id);
+
 /*
     public Page<User> findByDetailid(int id, Pageable pageable);
 */

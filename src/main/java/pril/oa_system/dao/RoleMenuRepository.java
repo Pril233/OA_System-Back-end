@@ -6,5 +6,5 @@ import pril.oa_system.pojo.RoleMenus;
 import java.util.List;
 
 public interface RoleMenuRepository extends JpaRepository<RoleMenus,Integer>{
-        List<RoleMenus> findAllByRid(Integer rid);
+        List<RoleMenus> findAllByRidOrderByMid(Integer rid);
 }

@@ -13,6 +13,6 @@ public class RoleMenusService {
     RoleMenuRepository roleMenuRepository;
 
     public List<RoleMenus> findAllByRid(Integer rid) {
-        return roleMenuRepository.findAllByRid(rid);
+        return roleMenuRepository.findAllByRidOrderByMid(rid);
     }
 }
