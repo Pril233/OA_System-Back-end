@@ -8,32 +8,32 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="t_file")
+@Table(name="t_activity")
 @Getter
 @Setter
-public class FileInfo {
+public class Activity {
     private static final String DDFormat = "yyyy-MM-dd HH:mm:ss";
     private static final String TIME_ZONE = "GMT+8";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String title;
+    private String content;
     @JsonFormat(pattern=DDFormat, timezone = TIME_ZONE)
-
     private Timestamp creationdata;
-    String filename;
-    String founder;
-    String filesize;
+    private String type;
+    private String founder;
 
-    FileInfo(){
+    private Activity(){
 
     }
 
-    public FileInfo(String filename,String founder,String filesize){
-        this.creationdata = new Timestamp(System.currentTimeMillis());
-        this.filename = filename;
+    public Activity(String title,String content,String type,String founder){
+        this.title = title;
+        this.content = content;
+        this.type = type;
         this.founder = founder;
-        this.filesize = filesize;
+        this.creationdata = new Timestamp(System.currentTimeMillis());
     }
-
 }

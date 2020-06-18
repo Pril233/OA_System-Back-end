@@ -1,10 +1,13 @@
 package pril.oa_system.Web.Controller;
 
 import com.fasterxml.jackson.databind.util.JSONWrappedObject;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import pril.oa_system.dao.PlanRepository;
+import pril.oa_system.pojo.Plan;
 import pril.oa_system.pojo.User;
 import pril.oa_system.result.Result;
 import pril.oa_system.result.ResultFactory;
@@ -14,11 +17,15 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
     @Resource
     UserService userServiceImpl;
+
+    @Resource
+    PlanRepository planRepository;
 
   /*  @GetMapping("/users")
     public Result getUsers() {
@@ -71,6 +78,30 @@ public class UserController {
             userServiceImpl.deleteById(id);
             return ResultFactory.buildSuccessResult(null,"删除员工成功");
     }
+
+    @PostMapping("/plan/{id}")
+    public Result addPlan(@PathVariable("id") int id, @RequestBody Map<String,String> map){
+        User user = userServiceImpl.findUserById(id);
+        Plan plan = new Plan(user,map.get("name"));
+        planRepository.save(plan);
+        return ResultFactory.buildSuccessResult(null,"保存计划成功");
+    }
+
+    @GetMapping("/plan/{id}")
+    public Result getPlanByUid(@PathVariable("id") int id){
+        int uid = id;
+        User user = userServiceImpl.findUserById(uid);
+        List<Plan> plans = planRepository.findByUserOrderByIdDesc(user);
+        return ResultFactory.buildSuccessResult(plans,"获取计划列表成功");
+    }
+
+    @DeleteMapping("/plan/{id}")
+    public Result deletePlanById(@PathVariable("id") int id){
+        planRepository.delete(id);
+        return ResultFactory.buildSuccessResult(null,"已完成");
+    }
+
+
 
 
 
