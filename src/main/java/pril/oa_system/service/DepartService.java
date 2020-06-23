@@ -27,7 +27,7 @@ public class DepartService {
     }
 
     public Page<Depart> getPageUsers(int pagenum, int pagesize){
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(pagenum,pagesize, sort);
         Page<Depart> pageFromJPA = departRepository.findAll(pageable);
         return pageFromJPA;
@@ -42,6 +42,9 @@ public class DepartService {
     }
 
     public void deleteDepartById(int id){
+        if(id==0){
+            return;
+        }
         Depart defaultDepart = new Depart(0);
         Depart depart = departRepository.findOne(id);
         List<User> usersFindByDepart = userRepository.findByDepart(depart);

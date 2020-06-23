@@ -27,7 +27,7 @@ public class PostService {
     }
 
     public Page<Post> getPostPage(int pagenum,int pagesize){
-        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Sort sort = new Sort(Sort.Direction.DESC,"id");
         Pageable pageable = new PageRequest(pagenum,pagesize,sort);
         Page<Post> page4Post = postRepository.findAll(pageable);
         return page4Post;
@@ -42,6 +42,9 @@ public class PostService {
     }
 
     public void deletePostById(int id){
+        if(id==0){
+            return;
+        }
         Post defaultPost = new Post(0);
         Post post = postRepository.findOne(id);
         List<User> usersFindByPost = userRepository.findByPost(post);

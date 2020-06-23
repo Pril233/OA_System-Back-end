@@ -111,7 +111,7 @@ public class FileService {
     }
 
     public Page<FileInfo> getFileInfoPage(int pagenum,int pagesize){
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(pagenum,pagesize, sort);
         Page<FileInfo> pageFromJPA = fileRepository.findAll(pageable);
         return pageFromJPA;

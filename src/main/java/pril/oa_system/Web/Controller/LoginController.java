@@ -29,7 +29,7 @@ public class LoginController {
         try{
             //完成登录
             subject.login(token);
-            System.out.println(subject.hasRole("管理员"));
+            //System.out.println(subject.hasRole("管理员"));
 
             //获得用户对象
             User resultUser = (User)subject.getPrincipal();
